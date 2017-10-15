@@ -16,7 +16,14 @@ public class Presenter implements IPresenter{
 
     @Override
     public void oneTact() {
+        seaWorldModel.oneDayOfWorld();
+    //    seaWorldView.setData(seaWorldModel.getAnimals());
+        seaWorldView.refreshData();
+    }
 
+    @Override
+    public void restartWorld() {
+        seaWorldModel.refreshWorldData();
         seaWorldView.refreshData();
     }
 }

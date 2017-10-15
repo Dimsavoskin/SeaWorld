@@ -11,8 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="bottom"
         android:stretchMode="columnWidth" />
 
+    <Button
+        android:id="@+id/restartBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/restart" />
 
 </LinearLayout>

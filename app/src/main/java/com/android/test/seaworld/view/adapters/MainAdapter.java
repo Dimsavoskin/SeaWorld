@@ -14,21 +14,19 @@ import com.android.test.seaworld.settings.Settings;
 public class MainAdapter extends BaseAdapter {
     private Context context;
 
-    private GridView gridView;
-    private Animal[][] animals;
-
     private int numOfColumns;
     private int numOfLines;
 
+    private GridView gridView;
+    private Animal[][] animals;
+
     public MainAdapter(Context context, GridView gridView, Animal[][] animals) {
         this.context = context;
+        this.numOfColumns = Settings.getNumOfColumns();
+        this.numOfLines = Settings.getNumOfRows();
         this.gridView = gridView;
         this.animals = animals;
-
-        numOfColumns = Settings.getNumOfColumns();
-        numOfLines = Settings.getNumOfRows();
     }
-
 
     @Override
     public int getCount() {
@@ -47,17 +45,17 @@ public class MainAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ImageView imageView;
-        Animal animal;
-        animal = (Animal) (getItem(i));
+        ImageView imageView = new ImageView(context);
 
-        imageView = new ImageView(context);
+        Animal animal = (Animal) (getItem(i));
 
-        imageView.setImageResource(animal.getDrawableResourceId());
+        if (animal != null)
+            imageView.setImageResource(animal.getDrawableResourceId());
+        else
+            imageView.setImageResource(0);
 
         ViewGroup.LayoutParams param = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                gridView.getHeight() / numOfLines);
+                ViewGroup.LayoutParams.MATCH_PARENT, gridView.getHeight() / numOfLines);
         imageView.setLayoutParams(param);
 
         return imageView;
