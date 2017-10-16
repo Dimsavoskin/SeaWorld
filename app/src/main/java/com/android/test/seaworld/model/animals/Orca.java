@@ -3,9 +3,7 @@ package com.android.test.seaworld.model.animals;
 
 import com.android.test.seaworld.R;
 import com.android.test.seaworld.model.SeaWorldModel;
-import com.android.test.seaworld.settings.Settings;
-
-import java.util.Set;
+import com.android.test.seaworld.utils.Settings;
 
 public class Orca extends Animal {
 
@@ -46,6 +44,10 @@ public class Orca extends Animal {
                 tux.setPosition(orcaX, orcaY);
                 tux.isAlive = false;
                 seaWorldModel.removeAnimal(tux);
+
+                if (lifeTime % timeToReprodution == 0) {
+                    reproduction();
+                }
             } else {
                 super.move();
             }

@@ -55,10 +55,11 @@ public class Animal {
 
         int offsetX, offsetY;
 
-        Random rand = new Random();
+    //    Random rand = new Random();
+
         do {
-            offsetX = rand.nextInt(3) - 1;
-            offsetY = rand.nextInt(3) - 1;
+            offsetX = (int) (Math.random() * 3) - 1;
+            offsetY = (int) (Math.random() * 3) - 1;
         } while ((offsetX == 0 && offsetY == 0)
                 || !seaWorldModel.overstep(positionX + offsetX, positionY + offsetY));
 

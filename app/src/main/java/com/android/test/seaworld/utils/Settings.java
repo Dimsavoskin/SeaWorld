@@ -1,4 +1,4 @@
-package com.android.test.seaworld.settings;
+package com.android.test.seaworld.utils;
 
 
 public class Settings {

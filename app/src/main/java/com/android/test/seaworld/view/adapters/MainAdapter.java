@@ -9,28 +9,28 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.android.test.seaworld.model.animals.Animal;
-import com.android.test.seaworld.settings.Settings;
+import com.android.test.seaworld.utils.Settings;
 
 public class MainAdapter extends BaseAdapter {
     private Context context;
 
     private int numOfColumns;
-    private int numOfLines;
+    private int numOfRows;
 
     private GridView gridView;
     private Animal[][] animals;
 
     public MainAdapter(Context context, GridView gridView, Animal[][] animals) {
         this.context = context;
-        this.numOfColumns = Settings.getNumOfColumns();
-        this.numOfLines = Settings.getNumOfRows();
+        numOfColumns = Settings.getNumOfColumns();
+        numOfRows = Settings.getNumOfRows();
         this.gridView = gridView;
         this.animals = animals;
     }
 
     @Override
     public int getCount() {
-        return numOfColumns * numOfLines;
+        return numOfColumns * numOfRows;
     }
 
     @Override
@@ -55,8 +55,10 @@ public class MainAdapter extends BaseAdapter {
             imageView.setImageResource(0);
 
         ViewGroup.LayoutParams param = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, gridView.getHeight() / numOfLines);
+                ViewGroup.LayoutParams.MATCH_PARENT, gridView.getHeight() / numOfRows);
         imageView.setLayoutParams(param);
+
+        imageView.requestLayout();
 
         return imageView;
     }

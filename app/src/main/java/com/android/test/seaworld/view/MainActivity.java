@@ -12,14 +12,14 @@ import com.android.test.seaworld.model.SeaWorldModel;
 import com.android.test.seaworld.model.animals.Animal;
 import com.android.test.seaworld.presenter.IPresenter;
 import com.android.test.seaworld.presenter.Presenter;
-import com.android.test.seaworld.settings.Settings;
+import com.android.test.seaworld.utils.Settings;
 import com.android.test.seaworld.view.adapters.MainAdapter;
 
 public class MainActivity extends AppCompatActivity implements IView, AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private GridView seaWorldGrid;
+    private GridView mGridView;
 
-    private Button restartButton;
+    private Button mRestartButton;
 
     private int numOfColumns;
     private int numOfRows;
@@ -36,20 +36,20 @@ public class MainActivity extends AppCompatActivity implements IView, AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        restartButton = (Button) findViewById(R.id.restartBtn);
-        restartButton.setOnClickListener(this);
+        mRestartButton = (Button) findViewById(R.id.activity_main_button_restart);
+        mRestartButton.setOnClickListener(this);
 
         numOfColumns = Settings.getNumOfColumns();
         numOfRows = Settings.getNumOfRows();
 
-        seaWorldGrid = (GridView) findViewById(R.id.seaWorldGrid);
-        seaWorldGrid.setNumColumns(numOfColumns);
-        // seaWorldGrid.setColumnWidth(seaWorldGrid.getWidth() / numOfColumns);
+        mGridView = (GridView) findViewById(R.id.activity_main_greed_view);
+        mGridView.setNumColumns(numOfColumns);
+        // mGridView.setColumnWidth(mGridView.getWidth() / numOfColumns);
 
 
-        seaWorldGrid.setAdapter(adapter);
+        mGridView.setAdapter(adapter);
 
-        seaWorldGrid.setOnItemClickListener(this);
+        mGridView.setOnItemClickListener(this);
 
         presenter = new Presenter(new SeaWorldModel(numOfColumns, numOfRows), this);
 
@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements IView, AdapterVie
 
     @Override
     public void setData(Animal[][] animals) {
-        adapter = new MainAdapter(this, seaWorldGrid, animals);
-        seaWorldGrid.setAdapter(adapter);
+        adapter = new MainAdapter(this, mGridView, animals);
+        mGridView.setAdapter(adapter);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements IView, AdapterVie
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.restartBtn:
+            case R.id.activity_main_button_restart:
                 presenter.restartWorld();
                 break;
         }

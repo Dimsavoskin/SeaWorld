@@ -7,16 +7,21 @@
     tools:context="com.android.test.seaworld.view.MainActivity">
 
     <GridView
-        android:id="@+id/seaWorldGrid"
+        android:id="@+id/activity_main_greed_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+
         android:stretchMode="columnWidth" />
 
     <Button
-        android:id="@+id/restartBtn"
+        android:id="@+id/activity_main_button_restart"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/restart" />
+        android:layout_margin="@dimen/margin_xsmall"
+        android:text="@string/restart"
+        android:textColor="@color/colorGreen"
+        android:background="@drawable/my_button"/>
 
 </LinearLayout>

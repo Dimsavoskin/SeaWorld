@@ -4,10 +4,9 @@ package com.android.test.seaworld.model;
 import com.android.test.seaworld.model.animals.Animal;
 import com.android.test.seaworld.model.animals.Orca;
 import com.android.test.seaworld.model.animals.Tux;
-import com.android.test.seaworld.settings.Settings;
+import com.android.test.seaworld.utils.Settings;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class SeaWorldModel implements IModel {
 
@@ -32,43 +31,73 @@ public class SeaWorldModel implements IModel {
         int numberOfTux = (int) ((numOfColumns * numOfRows) * (Settings.getPercentOfTux()) / 100);
         int numberOfOrca = (int) ((numOfColumns * numOfRows) * (Settings.getPercentOfOrca()) / 100);
 
-        //  System.out.println((numberOfOrca));
-
-        for (int i = 0; i < numOfColumns; i++) {
-            for (int j = 0; j < numOfRows; j++) {
-                if (numOfRows * i + j < numberOfTux)
-                    animals[i][j] = new Tux(this);
-                else if (numOfRows * i + j < numberOfTux + numberOfOrca)
-                    animals[i][j] = new Orca(this);
-                else
-                    animals[i][j] = null;
-            }
-        }
-
-        int randX, randY;
-        Random random = new Random();
-        Animal tmp;
-
         animalList = new ArrayList<Animal>();
 
-        for (int i = 0; i < numOfColumns; i++) {
-            for (int j = 0; j < numOfRows; j++) {
-                randX = random.nextInt(numOfColumns);
-                randY = random.nextInt(numOfRows);
-                tmp = animals[i][j];
-                animals[i][j] = animals[randX][randY];
-                animals[randX][randY] = tmp;
-            }
+        //  System.out.println((numberOfOrca));
+
+        for (int i=0;i<numberOfOrca;i++){
+            int x = -1;
+            int y = -1;
+            do{
+                x = (int) (Math.random()*numOfColumns);
+                y = (int) (Math.random()*numOfRows);
+            }while (animals[x][y] != null);
+
+            animals[x][y] = new Orca(this);
+            animalList.add(animals[x][y]);
+            animals[x][y].setPosition(x, y);
         }
 
-        for (int i = 0; i < numOfColumns; i++) {
-            for (int j = 0; j < numOfRows; j++) {
-                if (animals[i][j] != null) {
-                    animalList.add(animals[i][j]);
-                    animals[i][j].setPosition(i, j);
-                }
-            }
+
+        for (int i=0;i<numberOfTux;i++){
+            int x = -1;
+            int y = -1;
+            do{
+                x = (int) (Math.random()*numOfColumns);
+                y = (int) (Math.random()*numOfRows);
+            }while (animals[x][y] != null);
+
+            animals[x][y] = new Tux(this);
+            animalList.add(animals[x][y]);
+            animals[x][y].setPosition(x, y);
         }
+
+
+//        for (int i = 0; i < numOfColumns; i++) {
+//            for (int j = 0; j < numOfRows; j++) {
+//                if (numOfRows * i + j < numberOfTux)
+//                    animals[i][j] = new Tux(this);
+//                else if (numOfRows * i + j < numberOfTux + numberOfOrca)
+//                    animals[i][j] = new Orca(this);
+//                else
+//                    animals[i][j] = null;
+//            }
+//        }
+//
+//        int randX, randY;
+//        Random random = new Random();
+//        Animal tmp;
+//
+//
+//
+//        for (int i = 0; i < numOfColumns; i++) {
+//            for (int j = 0; j < numOfRows; j++) {
+//                randX = random.nextInt(numOfColumns);
+//                randY = random.nextInt(numOfRows);
+//                tmp = animals[i][j];
+//                animals[i][j] = animals[randX][randY];
+//                animals[randX][randY] = tmp;
+//            }
+//        }
+//
+//        for (int i = 0; i < numOfColumns; i++) {
+//            for (int j = 0; j < numOfRows; j++) {
+//                if (animals[i][j] != null) {
+//                    animalList.add(animals[i][j]);
+//                    animals[i][j].setPosition(i, j);
+//                }
+//            }
+//        }
 
         //    return getAnimalList();
     }
@@ -105,6 +134,13 @@ public class SeaWorldModel implements IModel {
 
     @Override
     public void refreshWorldData() {
+
+        for (int i = 0; i < numOfColumns; i++) {
+            for (int j = 0; j < numOfRows; j++) {
+                animals[i][j] = null;
+            }
+        }
+
         setAnimals();
     }
 
@@ -151,8 +187,7 @@ public class SeaWorldModel implements IModel {
         Animal child = new Animal(this);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if ((i != 1 || j != 1)
-                        && parentX + i - 1 >= 0 && parentX + i - 1 < numOfColumns
+                if ((i != 1 || j != 1) && parentX + i - 1 >= 0 && parentX + i - 1 < numOfColumns
                         && parentY + j - 1 >= 0 && parentY + j - 1 < numOfRows) {
                     if (animals[parentX + i - 1][parentY + j - 1] == null) {
                         childX = parentX + i - 1;
@@ -161,14 +196,13 @@ public class SeaWorldModel implements IModel {
                 }
             }
         }
-        if ((childX >= 0) && (childY >= 0)) {
 
+        if ((childX >= 0) && (childY >= 0)) {
             if (parent instanceof Tux) {
                 child = new Tux(this);
             } else {
                 child = new Orca(this);
             }
-
             addAnimal(child, childX, childY);
         }
 
