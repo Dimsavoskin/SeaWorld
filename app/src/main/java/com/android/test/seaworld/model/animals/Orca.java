@@ -7,7 +7,7 @@ import com.android.test.seaworld.utils.Settings;
 
 public class Orca extends Animal {
 
-    int timeWithOutFood;
+    private int timeWithOutFood;
 
     public Orca(SeaWorldModel seaWorldModel) {
         super(seaWorldModel);
@@ -17,26 +17,24 @@ public class Orca extends Animal {
     }
 
     @Override
-    public int getDrawableResourceId() {
+    public int getAnimalImageResource() {
         return R.drawable.orca;
     }
 
-
     @Override
     public void move() {
-
-        timeWithOutFood--;
-
+        // если время без еды закончилось, касатка умирает
         if (timeWithOutFood == 0) {
             seaWorldModel.removeAnimal(this);
         } else {
-
+            timeWithOutFood--;
+            // иначе ищем пингвина
             int orcaX = positionX;
             int orcaY = positionY;
-
             Tux tux = findTux(positionX, positionY);
 
             if (tux != null) {
+                // если пингвин найден, касатка на ест пингвина
                 lifeTime++;
                 timeWithOutFood = Settings.getTimeWithoutFoodOrca();
 
@@ -45,18 +43,18 @@ public class Orca extends Animal {
                 tux.isAlive = false;
                 seaWorldModel.removeAnimal(tux);
 
+                // проверяем, не пришло ли время для размножения
                 if (lifeTime % timeToReprodution == 0) {
                     reproduction();
                 }
             } else {
+                // если пингвин не найден, двигаемся как пингвин
                 super.move();
             }
         }
     }
 
-
-    Tux findTux(int orcaX, int orcaY) {
-
+    private Tux findTux(int orcaX, int orcaY) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (seaWorldModel.overstep((orcaX + i) - 1, (orcaY + j) - 1)) {
@@ -66,7 +64,6 @@ public class Orca extends Animal {
                 }
             }
         }
-
         return null;
     }
 }

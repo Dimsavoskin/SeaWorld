@@ -22,6 +22,6 @@
         android:layout_margin="@dimen/margin_xsmall"
         android:text="@string/restart"
         android:textColor="@color/colorGreen"
-        android:background="@drawable/my_button"/>
+        android:background="@drawable/reset_button"/>
 
 </LinearLayout>

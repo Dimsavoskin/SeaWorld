@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.android.test.seaworld.model.animals.Animal;
 import com.android.test.seaworld.utils.Settings;
 
-public class MainAdapter extends BaseAdapter {
+public class ImageAdapter extends BaseAdapter {
     private Context context;
 
     private int numOfColumns;
@@ -20,7 +20,7 @@ public class MainAdapter extends BaseAdapter {
     private GridView gridView;
     private Animal[][] animals;
 
-    public MainAdapter(Context context, GridView gridView, Animal[][] animals) {
+    public ImageAdapter(Context context, GridView gridView, Animal[][] animals) {
         this.context = context;
         numOfColumns = Settings.getNumOfColumns();
         numOfRows = Settings.getNumOfRows();
@@ -46,20 +46,17 @@ public class MainAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ImageView imageView = new ImageView(context);
+        imageView.setLayoutParams(new GridView.LayoutParams(gridView.getHeight() / numOfRows,
+                gridView.getHeight() / numOfRows));
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setPadding(1, 1, 1, 1);
 
         Animal animal = (Animal) (getItem(i));
-
-        if (animal != null)
-            imageView.setImageResource(animal.getDrawableResourceId());
-        else
+        if (animal != null) {
+            imageView.setImageResource(animal.getAnimalImageResource());
+        } else {
             imageView.setImageResource(0);
-
-        ViewGroup.LayoutParams param = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, gridView.getHeight() / numOfRows);
-        imageView.setLayoutParams(param);
-
-        imageView.requestLayout();
-
+        }
         return imageView;
     }
 }

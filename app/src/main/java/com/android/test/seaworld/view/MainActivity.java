@@ -13,66 +13,45 @@ import com.android.test.seaworld.model.animals.Animal;
 import com.android.test.seaworld.presenter.IPresenter;
 import com.android.test.seaworld.presenter.Presenter;
 import com.android.test.seaworld.utils.Settings;
-import com.android.test.seaworld.view.adapters.MainAdapter;
+import com.android.test.seaworld.view.adapters.ImageAdapter;
 
 public class MainActivity extends AppCompatActivity implements IView, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private GridView mGridView;
-
-    private Button mRestartButton;
-
-    private int numOfColumns;
-    private int numOfRows;
-
-    private MainAdapter adapter;
-
+    private ImageAdapter adapter;
     private IPresenter presenter;
-
-
-    //  Animal[][] animals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRestartButton = (Button) findViewById(R.id.activity_main_button_restart);
+        Button mRestartButton = (Button) findViewById(R.id.activity_main_button_restart);
         mRestartButton.setOnClickListener(this);
 
-        numOfColumns = Settings.getNumOfColumns();
-        numOfRows = Settings.getNumOfRows();
-
+        int numOfColumns = Settings.getNumOfColumns();
         mGridView = (GridView) findViewById(R.id.activity_main_greed_view);
         mGridView.setNumColumns(numOfColumns);
-        // mGridView.setColumnWidth(mGridView.getWidth() / numOfColumns);
-
-
         mGridView.setAdapter(adapter);
-
         mGridView.setOnItemClickListener(this);
 
-        presenter = new Presenter(new SeaWorldModel(numOfColumns, numOfRows), this);
-
-
+        presenter = new Presenter(new SeaWorldModel(), this);
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        System.out.println("Click");
         presenter.oneTact();
     }
 
     @Override
     public void setData(Animal[][] animals) {
-        adapter = new MainAdapter(this, mGridView, animals);
+        adapter = new ImageAdapter(this, mGridView, animals);
         mGridView.setAdapter(adapter);
     }
 
     @Override
     public void refreshData() {
-        System.out.println("refreshData");
-
         adapter.notifyDataSetChanged();
     }
 

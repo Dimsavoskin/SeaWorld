@@ -3,8 +3,6 @@ package com.android.test.seaworld.model.animals;
 
 import com.android.test.seaworld.model.SeaWorldModel;
 
-import java.util.Random;
-
 public class Animal {
 
     int positionX;
@@ -14,17 +12,13 @@ public class Animal {
     int timeToReprodution;
 
     public boolean isAlive;
-
-
     SeaWorldModel seaWorldModel;
 
     public Animal(SeaWorldModel seaWorldModel) {
         this.seaWorldModel = seaWorldModel;
         positionX = 0;
         positionY = 0;
-
         lifeTime = 0;
-
         isAlive = true;
     }
 
@@ -41,40 +35,26 @@ public class Animal {
         positionY = y;
     }
 
-    public int getDrawableResourceId() {
+    public int getAnimalImageResource() {
         return 0;
     }
 
-
     public void move() {
         lifeTime++;
-
         if (lifeTime % timeToReprodution == 0) {
             reproduction();
         }
-
+        // выбор случайной позиции для перемещения, не выходящей за границы
         int offsetX, offsetY;
-
-    //    Random rand = new Random();
-
         do {
             offsetX = (int) (Math.random() * 3) - 1;
             offsetY = (int) (Math.random() * 3) - 1;
-        } while ((offsetX == 0 && offsetY == 0)
-                || !seaWorldModel.overstep(positionX + offsetX, positionY + offsetY));
-
+        } while (!seaWorldModel.overstep(positionX + offsetX, positionY + offsetY)
+                || (offsetX == 0 && offsetY == 0));
         seaWorldModel.moveAnimal(this, positionX + offsetX, positionY + offsetY, false);
-
-
-
-
-        System.out.println(lifeTime + " " + timeToReprodution);
-
     }
 
-    public void reproduction() {
+    void reproduction() {
         seaWorldModel.tryAddChild(this);
     }
-
-
 }
