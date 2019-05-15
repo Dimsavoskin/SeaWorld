@@ -34,7 +34,7 @@ public class Orca extends Animal {
             Tux tux = findTux(positionX, positionY);
 
             if (tux != null) {
-                // если пингвин найден, касатка на ест пингвина
+                // если пингвин найден, касатка ест пингвина
                 lifeTime++;
                 timeWithOutFood = Settings.getTimeWithoutFoodOrca();
 
