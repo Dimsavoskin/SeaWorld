@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements IView, AdapterVie
         Button mRestartButton = (Button) findViewById(R.id.activity_main_button_restart);
         mRestartButton.setOnClickListener(this);
 
-        int numOfColumns = Settings.getNumOfColumns();
+        int numOfColumns = Settings.numOfColumns;
         mGridView = (GridView) findViewById(R.id.activity_main_greed_view);
         mGridView.setNumColumns(numOfColumns);
         mGridView.setAdapter(adapter);

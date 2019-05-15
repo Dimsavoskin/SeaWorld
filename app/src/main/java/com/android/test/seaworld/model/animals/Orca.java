@@ -11,9 +11,9 @@ public class Orca extends Animal {
 
     public Orca(SeaWorldModel seaWorldModel) {
         super(seaWorldModel);
-        timeToReprodution = Settings.getTimeToReproductionOrca();
+        timeToReprodution = Settings.timeToReproductionOrca;
         lifeTime = 0;
-        timeWithOutFood = Settings.getTimeWithoutFoodOrca();
+        timeWithOutFood = Settings.timeWithoutFoodOrca;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Orca extends Animal {
             if (tux != null) {
                 // если пингвин найден, касатка ест пингвина
                 lifeTime++;
-                timeWithOutFood = Settings.getTimeWithoutFoodOrca();
+                timeWithOutFood = Settings.timeWithoutFoodOrca;
 
                 seaWorldModel.moveAnimal(this, tux.positionX, tux.positionY, true);
                 tux.setPosition(orcaX, orcaY);

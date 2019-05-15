@@ -22,8 +22,8 @@ public class ImageAdapter extends BaseAdapter {
 
     public ImageAdapter(Context context, GridView gridView, Animal[][] animals) {
         this.context = context;
-        numOfColumns = Settings.getNumOfColumns();
-        numOfRows = Settings.getNumOfRows();
+        numOfColumns = Settings.numOfColumns;
+        numOfRows = Settings.numOfRows;
         this.gridView = gridView;
         this.animals = animals;
     }

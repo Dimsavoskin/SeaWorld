@@ -9,7 +9,7 @@ public class Tux extends Animal {
 
     public Tux(SeaWorldModel seaWorldModel) {
         super(seaWorldModel);
-        timeToReprodution = Settings.getTimeToReproductionTux();
+        timeToReprodution = Settings.timeToReproductionTux;
     }
 
     @Override

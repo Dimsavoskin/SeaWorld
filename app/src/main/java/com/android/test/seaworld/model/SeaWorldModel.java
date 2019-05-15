@@ -16,8 +16,8 @@ public class SeaWorldModel implements IModel {
     private int numOfRows;
 
     public SeaWorldModel() {
-        numOfColumns = Settings.getNumOfColumns();
-        numOfRows = Settings.getNumOfRows();
+        numOfColumns = Settings.numOfColumns;
+        numOfRows = Settings.numOfRows;
 
         animals = new Animal[this.numOfColumns][this.numOfRows];
         setAnimals();
@@ -25,8 +25,8 @@ public class SeaWorldModel implements IModel {
 
     // расстановка животных на поле
     private void setAnimals() {
-        int numberOfTux = (int) ((numOfColumns * numOfRows) * (Settings.getPercentOfTux()) / 100);
-        int numberOfOrca = (int) ((numOfColumns * numOfRows) * (Settings.getPercentOfOrca()) / 100);
+        int numberOfTux = (int) ((numOfColumns * numOfRows) * (Settings.percentOfTux) / 100);
+        int numberOfOrca = (int) ((numOfColumns * numOfRows) * (Settings.percentOfOrca) / 100);
         stillAliveAnimalList = new ArrayList<Animal>();
 
         for (int i = 0; i < numberOfOrca; i++) {
