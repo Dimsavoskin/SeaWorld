@@ -71,11 +71,11 @@ public class SeaWorldModel implements IModel {
         stillAliveAnimalList = new ArrayList<Animal>();
         for (int i = 0; i < numOfColumns; i++) {
             for (int j = 0; j < numOfRows; j++) {
-                if (animals[i][j] != null && animals[i][j].isAlive) {
+                if (animals[i][j] != null && animals[i][j].isAlive()) {
                     animals[i][j].setPosition(i, j);
                     stillAliveAnimalList.add(animals[i][j]);
                 }
-                if (animals[i][j] != null && !animals[i][j].isAlive) {
+                if (animals[i][j] != null && !animals[i][j].isAlive()) {
                     animals[i][j] = null;
                 }
             }
