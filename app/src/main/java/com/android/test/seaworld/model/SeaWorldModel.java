@@ -25,13 +25,13 @@ public class SeaWorldModel implements IModel {
 
     // расстановка животных на поле
     private void setAnimals() {
-        int numberOfTux = (int) ((numOfColumns * numOfRows) * (Settings.percentOfTux) / 100);
-        int numberOfOrca = (int) ((numOfColumns * numOfRows) * (Settings.percentOfOrca) / 100);
-        stillAliveAnimalList = new ArrayList<Animal>();
+        int numberOfTux = ((numOfColumns * numOfRows) * (Settings.percentOfTux) / 100);
+        int numberOfOrca = ((numOfColumns * numOfRows) * (Settings.percentOfOrca) / 100);
+        stillAliveAnimalList = new ArrayList<>();
 
         for (int i = 0; i < numberOfOrca; i++) {
-            int x = -1;
-            int y = -1;
+            int x ;
+            int y;
             do {
                 x = (int) (Math.random() * numOfColumns);
                 y = (int) (Math.random() * numOfRows);
@@ -43,8 +43,8 @@ public class SeaWorldModel implements IModel {
         }
 
         for (int i = 0; i < numberOfTux; i++) {
-            int x = -1;
-            int y = -1;
+            int x;
+            int y;
             do {
                 x = (int) (Math.random() * numOfColumns);
                 y = (int) (Math.random() * numOfRows);
@@ -68,7 +68,7 @@ public class SeaWorldModel implements IModel {
             animal.move();
         }
         // обновляем список живых животных
-        stillAliveAnimalList = new ArrayList<Animal>();
+        stillAliveAnimalList = new ArrayList<>();
         for (int i = 0; i < numOfColumns; i++) {
             for (int j = 0; j < numOfRows; j++) {
                 if (animals[i][j] != null && animals[i][j].isAlive()) {

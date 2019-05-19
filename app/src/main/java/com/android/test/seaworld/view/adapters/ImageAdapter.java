@@ -35,7 +35,7 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return animals[i % numOfColumns][(int) (i / numOfColumns)];
+        return animals[i % numOfColumns][(i / numOfColumns)];
     }
 
     @Override
